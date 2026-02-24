@@ -190,6 +190,16 @@ class AIConsultant:
                 "status": "ok"
             }
         except Exception as e:
+            # Автоматический fallback на Groq если Gemini недоступен
+            groq_key = os.getenv("GROQ_API_KEY")
+            if groq_key:
+                try:
+                    from groq import Groq
+                    self.provider = Groq(api_key=groq_key)
+                    self.provider_name = "groq"
+                    return self._ask_groq(system, user_msg)
+                except Exception:
+                    pass
             return {"answer": f"Ошибка Gemini: {e}", "provider": "gemini", "status": "error"}
 
     def _ask_groq(self, system: str, user_msg: str) -> dict:
