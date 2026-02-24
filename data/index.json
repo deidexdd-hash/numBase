@@ -1,0 +1,19 @@
+{
+  "version": "1.0",
+  "created": "2025-02-17",
+  "total_formulas": 15,
+  "total_practices": 8,
+  "total_algorithms": 2,
+  "categories": [
+    "energy",
+    "ancestral",
+    "numerology",
+    "calculations"
+  ],
+  "files": {
+    "formulas": "formulas.json",
+    "practices": "practices.json",
+    "algorithms": "algorithms.json",
+    "number_meanings": "number_meanings.json"
+  }
+}

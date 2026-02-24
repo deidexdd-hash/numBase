@@ -1,0 +1,45 @@
+# ================================================================
+# render.yaml — Конфигурация деплоя на Render.com
+#
+# Деплой:
+#   1. Зарегистрируйтесь на render.com
+#   2. New → Web Service → подключите GitHub репозиторий
+#   3. Render автоматически обнаружит этот файл
+#   4. Добавьте переменную окружения OPENAI_API_KEY в дашборде
+#
+# Бесплатный план: 512MB RAM, засыпает после 15 мин неактивности
+# Платный план ($7/мес): не засыпает, 512MB RAM
+# ================================================================
+
+services:
+  - type: web
+    name: numerology-ancestology
+    runtime: python
+    region: frankfurt          # Ближайший к РФ регион
+    plan: free                 # free | starter ($7/мес)
+
+    buildCommand: pip install --no-cache-dir -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT --log-level info
+
+    # Переменные окружения
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: HOST
+        value: 0.0.0.0
+      - key: OPENAI_API_KEY
+        sync: false            # Заполните вручную в дашборде Render
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false            # Опционально — заполните если нужен Telegram бот
+
+    # Диск для SQLite базы данных (только на платных планах)
+    # disk:
+    #   name: data
+    #   mountPath: /app/data
+    #   sizeGB: 1
+
+    # Health check
+    healthCheckPath: /api/health
+
+    # Auto-deploy при push в main
+    autoDeploy: true

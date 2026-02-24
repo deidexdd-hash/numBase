@@ -1,0 +1,34 @@
+# ================================================================
+# Нумерология и Ансестология — зависимости проекта
+# Установка: pip install -r requirements.txt
+# ================================================================
+
+# --- Web / API сервер ---
+fastapi==0.115.6
+uvicorn[standard]==0.32.1
+aiofiles==24.1.0
+python-multipart==0.0.12
+
+# --- AI ---
+openai>=1.50.0
+
+# --- Telegram Bot ---
+python-telegram-bot==20.7
+
+# --- OCR и обработка PDF ---
+pytesseract==0.3.13
+pdf2image==1.17.0
+Pillow>=10.0.0
+
+# --- Парсинг HTML ---
+beautifulsoup4==4.12.3
+lxml==5.3.0
+
+# --- Конфигурация ---
+python-dotenv==1.0.1
+
+# --- HTTP клиент ---
+requests==2.32.5
+
+# --- Утилиты (stdlib, не устанавливать) ---
+# sqlite3, json, pathlib, logging, hashlib, datetime, os, sys
