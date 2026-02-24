@@ -180,13 +180,13 @@ class AIConsultant:
         try:
             import google.generativeai as genai
             model = genai.GenerativeModel(
-                "gemini-1.5-flash",
+                "gemini-2.0-flash",
                 system_instruction=system
             )
             resp = model.generate_content(user_msg)
             return {
                 "answer": resp.text,
-                "provider": "gemini-1.5-flash",
+                "provider": "gemini-2.0-flash",
                 "status": "ok"
             }
         except Exception as e:
