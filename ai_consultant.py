@@ -31,7 +31,7 @@ def get_ai_provider():
     """Определить доступный AI провайдер (приоритет: Gemini → Groq → Local)"""
     
     # 1. Google Gemini (бесплатный tier: 15 RPM)
-    gemini_key = os.getenv("GEMINI_API_KEY")
+    gemini_key = os.getenv("AIzaSyD1M3IlvPdp8c4GgW1B61yJN_NfdLpeoEs")
     if gemini_key:
         try:
             import google.generativeai as genai
@@ -41,7 +41,7 @@ def get_ai_provider():
             pass
     
     # 2. Groq (бесплатный tier: Llama 3.1 8B)
-    groq_key = os.getenv("GROQ_API_KEY")
+    groq_key = os.getenv("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")
     if groq_key:
         try:
             from groq import Groq
