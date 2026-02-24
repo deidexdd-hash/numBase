@@ -219,7 +219,9 @@ def _build_telegram_app():
             await update.message.reply_text("Отменено.")
             return ConversationHandler.END
 
-        tg = Application.builder().token(TELEGRAM_TOKEN).build()
+        # .updater(None) — отключаем Updater, он нужен только для polling.
+        # При webhook-режиме Updater не используется и вызывает ошибки совместимости.
+        tg = Application.builder().token(TELEGRAM_TOKEN).updater(None).build()
         tg.add_handler(CommandHandler("start", start))
         tg.add_handler(CommandHandler("help",  help_cmd))
         tg.add_handler(ConversationHandler(

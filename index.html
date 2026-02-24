@@ -749,14 +749,14 @@ function renderRes(data){
       <div class="card-detail">
         ${formulaTxt?`<div class="trait-section"><div class="trait-lbl">⚙ Формула</div><div class="card-formula">${formulaTxt}</div></div>`:''}
         ${interp?`<div class="trait-section"><div class="trait-lbl">💡 Интерпретация</div><div class="card-interp">${interp}</div></div>`:''}
-        ${mn.pos.length?`<div class="trait-section"><div class="trait-lbl">✦ Сильные стороны</div><div class="trait-chips">${mn.pos.slice(0,6).map(t=>`<span class="trait-chip pos">${t}</span>`).join('')}</div></div>`:''}
-        ${mn.neg.length?`<div class="trait-section"><div class="trait-lbl">◎ Зоны роста</div><div class="trait-chips">${mn.neg.slice(0,6).map(t=>`<span class="trait-chip neg">${t}</span>`).join('')}</div></div>`:''}
-        ${mn.prof.length?`<div class="trait-section"><div class="trait-lbl">∞ Сферы реализации</div><div class="trait-chips">${mn.prof.slice(0,8).map(t=>`<span class="trait-chip prof">${t}</span>`).join('')}</div></div>`:''}
-        ${mn.rod.length?`<div class="trait-section"><div class="trait-lbl">🌿 Родовые программы</div><div class="trait-chips">${mn.rod.slice(0,4).map(t=>`<span class="trait-chip rod">${t}</span>`).join('')}</div></div>`:''}
+        ${mn.pos.length?`<div class="trait-section"><div class="trait-lbl">✦ Сильные стороны</div><div class="trait-chips">${mn.pos.map(t=>`<span class="trait-chip pos">${t}</span>`).join('')}</div></div>`:''}
+        ${mn.neg.length?`<div class="trait-section"><div class="trait-lbl">◎ Зоны роста</div><div class="trait-chips">${mn.neg.map(t=>`<span class="trait-chip neg">${t}</span>`).join('')}</div></div>`:''}
+        ${mn.prof.length?`<div class="trait-section"><div class="trait-lbl">∞ Сферы реализации</div><div class="trait-chips">${mn.prof.map(t=>`<span class="trait-chip prof">${t}</span>`).join('')}</div></div>`:''}
+        ${mn.rod.length?`<div class="trait-section"><div class="trait-lbl">🌿 Родовые программы</div><div class="trait-chips">${mn.rod.map(t=>`<span class="trait-chip rod">${t}</span>`).join('')}</div></div>`:''}
         ${mn.chakra?`<div class="trait-section"><div class="trait-lbl">🔮 Чакра</div><div class="card-chakra">${mn.chakra}</div></div>`:''}
       </div>
       <button class="detail-toggle" onclick="toggleDetail(this.closest('.result-card'))">Подробнее <span class="arr">▾</span></button>`:'';
-    return`<div class="result-card"><div class="card-label">${c.em} ${c.label}</div><div class="card-num" style="color:${mn.color||'var(--gold)'}">${n}</div><div class="card-title">${mn.title}</div>${mn.kw.length?`<div class="card-kws">${mn.kw.slice(0,4).map(k=>`<span class="kw">${k}</span>`).join('')}</div>`:''}<div class="card-desc">${mn.desc||''}</div>${detailBlock}</div>`;
+    return`<div class="result-card"><div class="card-label">${c.em} ${c.label}</div><div class="card-num" style="color:${mn.color||'var(--gold)'}">${n}</div><div class="card-title">${mn.title}</div>${mn.kw.length?`<div class="card-kws">${mn.kw.map(k=>`<span class="kw">${k}</span>`).join('')}</div>`:''}<div class="card-desc">${mn.desc||''}</div>${detailBlock}</div>`;
   });
   document.getElementById('results-home').innerHTML=`<div class="results-grid">${grid.join('')}</div>
     <div id="radar-mount"></div>
@@ -816,7 +816,7 @@ function localSearch(q){
 function renderSearch(res,q=''){
   if(!res.length){document.getElementById('search-res').innerHTML=showEmptySearch(q||'…');return;}
   document.getElementById('search-res').innerHTML=res.map(r=>`
-    <div class="res-item" onclick="openDoc(${r.id||0},'${(r.title||'').replace(/'/g,"\'")}','${(r.snippet||'').slice(0,300).replace(/'/g,"\'")}')">
+    <div class="res-item" onclick="openDoc(${r.id||0},'${(r.title||'').replace(/'/g,"\'")}','${r.snippet||''.replace(/'/g,"\'")}')">
       <div class="res-title">${r.title||r.filename||'Документ'}</div>
       <div class="res-snippet">${r.snippet||''}</div>
       <div class="res-meta"><span>${r.type||'pdf'}</span>${(r.categories||[]).slice(0,2).map(c=>`<span>${c}</span>`).join('')}</div>
@@ -1190,7 +1190,7 @@ function copyResult(){
     if(!c)return;
     const mn=nm(c.value);
     lines.push(`${k.label}: ${c.value} — ${mn.title}`);
-    if(mn.kw.length)lines.push(`  Ключевые слова: ${mn.kw.slice(0,4).join(', ')}`);
+    if(mn.kw.length)lines.push(`  Ключевые слова: ${mn.kw.join(', ')}`);
   });
   lines.push('','Создано в приложении Нумерология и Ансестология');
   const text=lines.join('\n');

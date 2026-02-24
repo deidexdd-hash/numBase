@@ -113,7 +113,7 @@ class AIConsultant:
                     WHERE content LIKE ? OR title LIKE ? LIMIT ?
                 """, (f"%{query}%", f"%{query}%", limit))
             rows = cur.fetchall()
-            return [{"title": r[0], "content": (r[1] or "")[:600]} for r in rows]
+            return [{"title": r[0], "content": r[1] or ""} for r in rows]
         except Exception as e:
             return []
 
@@ -126,7 +126,7 @@ class AIConsultant:
         if docs:
             parts.append("📚 МАТЕРИАЛЫ ИЗ БАЗЫ ЗНАНИЙ:")
             for i, doc in enumerate(docs, 1):
-                parts.append(f"{i}. {doc['title']}: {doc['content'][:400]}...")
+                parts.append(f"{i}. {doc['title']}: {doc['content']}...")
         
         # 2. Данные пользователя (числа расчётов)
         if user_data:
@@ -139,7 +139,7 @@ class AIConsultant:
                         parts.append(f"  {key}: {val['value']} — {meaning.get('title','')}")
                         desc = meaning.get('description', '')
                         if desc:
-                            parts.append(f"    {desc[:200]}")
+                            parts.append(f"    {desc}")
         
         # 3. Релевантные формулы
         if isinstance(self.formulas, list):
