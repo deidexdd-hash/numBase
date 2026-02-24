@@ -164,9 +164,9 @@ def _build_telegram_app():
                         if m.get("title"):
                             lines.append(f"_{m['title']}_")
                         if m.get("description"):
-                            lines.append(m["description"][:300])
+                            lines.append(m["description"])
                         if m.get("keywords"):
-                            lines.append(f"🔑 {', '.join(m['keywords'][:4])}")
+                            lines.append(f"🔑 {', '.join(m['keywords'])}")
                         lines.append("")
                 await update.message.reply_text("\n".join(lines), parse_mode="Markdown")
             except Exception as e:
@@ -186,7 +186,7 @@ def _build_telegram_app():
             for r in results:
                 lines.append(f"📄 *{r.get('title', 'Без названия')}*")
                 if r.get("snippet"):
-                    lines.append(f"_{r['snippet'][:150]}_")
+                    lines.append(f"_{r['snippet']}_")
                 lines.append("")
             await update.message.reply_text("\n".join(lines), parse_mode="Markdown")
 
